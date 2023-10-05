@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzDoCopilotSK", "src\AzDoCopilotSK.csproj", "{86319A22-3E61-4704-A92F-38A2DEFEAE21}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{0C2D280E-FAA8-451A-BF0B-88771DAAFD74}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdoCopilotApi.UnitTest", "test\AdoCopilotApi.UnitTest\AdoCopilotApi.UnitTest.csproj", "{AAE46C9D-35D7-4F30-AD9C-36A8D486FB94}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{86319A22-3E61-4704-A92F-38A2DEFEAE21}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{86319A22-3E61-4704-A92F-38A2DEFEAE21}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{86319A22-3E61-4704-A92F-38A2DEFEAE21}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{86319A22-3E61-4704-A92F-38A2DEFEAE21}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AAE46C9D-35D7-4F30-AD9C-36A8D486FB94}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AAE46C9D-35D7-4F30-AD9C-36A8D486FB94}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AAE46C9D-35D7-4F30-AD9C-36A8D486FB94}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AAE46C9D-35D7-4F30-AD9C-36A8D486FB94}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{AAE46C9D-35D7-4F30-AD9C-36A8D486FB94} = {0C2D280E-FAA8-451A-BF0B-88771DAAFD74}
+	EndGlobalSection
+EndGlobal

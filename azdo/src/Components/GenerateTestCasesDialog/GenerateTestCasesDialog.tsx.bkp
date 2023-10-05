@@ -1,0 +1,282 @@
+import "./GenerateTestCasesDialog.scss";
+
+import * as React from "react";
+import * as SDK from "azure-devops-extension-sdk";
+import { css } from "azure-devops-ui/Util";
+
+import { Toggle } from "azure-devops-ui/Toggle";
+import { showRootComponent } from "../../Common";
+import { IReadonlyObservableValue } from "azure-devops-ui/Core/Observable";
+
+import "azure-devops-ui/Core/override.css";
+import { PanelFooter } from "azure-devops-ui/Components/Panel/PanelFooter";
+<<<<<<< Updated upstream
+import { TestCase, TestCasesService } from "../../Services/TestCasesService";
+import { IWorkItemFormService, WorkItemTrackingServiceIds } from "azure-devops-extension-api/WorkItemTracking/WorkItemTrackingServices";
+=======
+import { TestCasesService } from "../../Services/TestCasesService";
+import { CommonServiceIds, IProjectPageService } from "azure-devops-extension-api/Common/CommonServices";
+import { getClient } from "azure-devops-extension-api/Common/Client";
+
+import { JsonPatchDocument,JsonPatchOperation, Operation } from "azure-devops-extension-api/WebApi";
+import { WorkItemTrackingRestClient } from "azure-devops-extension-api/WorkItemTracking/WorkItemTrackingClient";
+import { WorkItem } from "azure-devops-extension-api/WorkItemTracking/WorkItemTracking";
+import { IWorkItemFormNavigationService, WorkItemTrackingServiceIds } from "azure-devops-extension-api/WorkItemTracking/WorkItemTrackingServices";
+import { Button } from "azure-devops-ui/Components/Button/Button";
+import { CoreRestClient } from "azure-devops-extension-api/Core/CoreClient";
+
+export const TITLE_FIELD:string = "System.Title";
+export const DESCRIPTION_FIELD:string = "System.Description";
+export const AREA_PATH_FIELD:string = "System.AreaPath";
+export const ACCEPTANCE_CRITERIA_FIELD:string = "Microsoft.VSTS.Common.AcceptanceCriteria";
+export const WORK_ITEM_TYPE_FIELD:string ="System.WorkItemType";
+export const STACK_RANK_FIELD:string = "Microsoft.VSTS.Common.StackRank";
+export const AREA_ID_FIELD:string = "System.AreaId";
+export const ASSIGNED_TO_FIELD:string = "System.AssignedTo";
+
+
+export async function CreateWorkItem(witClient:WorkItemTrackingRestClient, projectId:string, workItemType:string, title:string, description:string, criteria:string, areaPath:string)//:Promise<WorkItem>
+{
+
+    let patch:JsonPatchDocument = []
+    let ops:JsonPatchOperation[] = [];
+    
+    var wiPatchNameOp: JsonPatchOperation = {op: Operation.Add, path:"/fields/" + TITLE_FIELD, value:title, from:""};
+    var wiPatchDescOp: JsonPatchOperation = {op: Operation.Add, path:"/fields/" + DESCRIPTION_FIELD, value:description,from:""};
+    var wiPatchAreaPathOp: JsonPatchOperation = {op: Operation.Add, path:"/fields/" + AREA_PATH_FIELD, value:areaPath,from:""};
+    var wiPatchAcceptOp: JsonPatchOperation = {op: Operation.Add, path:"/fields/" + ACCEPTANCE_CRITERIA_FIELD, value:criteria, from:""};
+
+    ops.push(wiPatchNameOp);
+    ops.push(wiPatchDescOp);
+    ops.push(wiPatchAreaPathOp);
+    ops.push(wiPatchAcceptOp);
+    patch = ops;
+
+
+    return await witClient.createWorkItem(patch,projectId, workItemType);
+}
+
+interface TestCaseStep {
+  action: string;
+  expectedResult: string;
+}
+
+interface TestCase {
+  checked: boolean | IReadonlyObservableValue<boolean> | undefined;
+  title: string;
+  testCaseSteps?: TestCaseStep[];
+}
+>>>>>>> Stashed changes
+
+interface IDialogContentState {
+  context?: string;
+  testCases: TestCase[];
+  loading?: boolean;
+  error?: string;
+}
+
+class DialogContent extends React.Component<{}, IDialogContentState> {
+  constructor(props: {}) {
+    super(props);
+    this.state = {
+      testCases: [],
+    };
+  }
+
+  public componentDidMount() {
+    SDK.init();
+
+    SDK.ready().then(async () => {
+      const config = SDK.getConfiguration();
+<<<<<<< Updated upstream
+      const message = config.message || "Custom dialog message";
+      const workItemFormService = await SDK.getService<IWorkItemFormService>(WorkItemTrackingServiceIds.WorkItemFormService);
+      const acceptanceCriteria = await workItemFormService.getFieldValue('Microsoft.VSTS.Common.AcceptanceCriteria');
+
+      this.setState({
+        message,
+        testCases: [],
+        loading: true,
+=======
+      const context = config.context || {};
+
+      this.setState({
+        context,
+        testCases: [{title: "one", checked: true}],
+        loading: false,
+>>>>>>> Stashed changes
+      });
+
+      if(acceptanceCriteria != null || acceptanceCriteria == ''){
+        TestCasesService.getTestCasesPreview(acceptanceCriteria).then((testCases) => {
+          this.setState({
+            testCases: testCases,
+            loading: false,
+          });
+
+          console.log(testCases)
+        }).finally(() => 
+          {
+            if(this.state.testCases == null || this.state.testCases.length == 0)
+            {
+              this.setState({
+                error: 'Something went wrong creating test cases, please try again.',
+                loading: false
+              })
+            }
+          })
+        
+      }
+      else {
+        this.setState({
+          error: 'Acceptance criteria is empty, please update before trying again.',
+          loading: false
+        })
+      }
+    });
+  }
+
+  public render(): JSX.Element {
+    const { testCases, context } = this.state;
+
+    return (
+      <div className={css("modal-container")}>
+        {this.state.loading ? (
+          <div>Loading...</div>
+        ) : (
+          <>
+            <div className={css("flex-column flex-grow")}>
+              
+           {this.state.testCases.length > 0 &&
+              <table>
+                <thead>
+                  <tr>
+                    <td>Title</td>
+                    <td>Steps</td>
+                    <td>&nbsp;</td>
+                  </tr>
+                </thead>
+                <tbody>
+                  {testCases &&
+                    testCases.map((testCase, index: any) => {
+                      return (
+                        <tr>
+<<<<<<< Updated upstream
+                          <td>
+                            <Toggle
+                              checked={testCase.checked}
+                              onChange={(event, checked) => {
+                                testCase.checked = checked;
+
+                                this.setState({
+                                  testCases
+                                })
+                              }}
+                            />
+                          </td>
+=======
+>>>>>>> Stashed changes
+                          <td>{testCase.title}</td>
+                          <td>
+                            <table>
+                              <thead>
+                                <tr>
+                                  <td>Action</td>
+                                  <td>Expected</td>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                {testCase.testCaseSteps.map(
+                                  (step, index: any) => {
+                                    return (
+                                      <>
+                                        <tr>
+                                          <td>{step.action}</td>
+                                          <td>{step.expectedResult}</td>
+                                        </tr>
+                                      </>
+                                    );
+                                  }
+                                )}
+                              </tbody>
+                            </table>
+                          </td>
+                          <td>
+                          <Button
+                              text="Create"
+                              primary={true}
+                              onClick={async () => {
+                                const navigationService = await SDK.getService<IWorkItemFormNavigationService>(WorkItemTrackingServiceIds.WorkItemFormNavigationService);
+
+                                const projectService = await SDK.getService<IProjectPageService>(CommonServiceIds.ProjectPageService);
+
+                                var project = await projectService.getProject(); 
+              
+                                const coreClient = await getClient(CoreRestClient);
+
+                                console.log(project);
+               
+                                 const projectProps = await coreClient.getProjectProperties(
+                                     project.id
+                                 );
+                                
+                                console.log(JSON.stringify(projectProps));
+                                console.log(JSON.stringify(context));
+
+                                
+
+                               navigationService.openNewWorkItem("Test Case", { title: "My title" });
+                               this.dismiss(true);
+                              }}
+                          />
+                          </td>
+                        </tr>
+                      );
+                    })}
+                </tbody>
+              </table>
+           }
+              <div>{this.state.error}</div>
+            </div>
+          </>
+        )}
+        <PanelFooter
+          className={css("bolt-dialog-resizable-footer footer-buttons")}
+          showSeparator={false}
+          buttonProps={[
+            /*{
+              text: "Create",
+<<<<<<< Updated upstream
+              onClick: () => this.dismiss(true),
+=======
+              onClick: async () => {
+                  
+                
+              },
+>>>>>>> Stashed changes
+              primary: true,
+            },*/
+            {
+              text: "Close",
+              onClick: () => this.dismiss(false),
+            },
+          ]}
+        />
+      </div>
+    );
+  }
+
+  private dismiss(useValue: boolean) {
+    if (useValue) {
+    }
+
+    const config = SDK.getConfiguration();
+    if (config.dialog) {
+      config.dialog.close();
+    } else if (config.panel) {
+      config.panel.close();
+    }
+  }
+}
+
+showRootComponent(<DialogContent />);

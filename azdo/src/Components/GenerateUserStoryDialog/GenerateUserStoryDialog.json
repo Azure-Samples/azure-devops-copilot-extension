@@ -1,0 +1,11 @@
+{
+    "contributions": [
+        {
+            "id": "generate-user-story-dialog",
+            "type": "ms.vss-web.external-content",
+            "properties": {
+                "uri": "dist/GenerateUserStoryDialog/GenerateUserStoryDialog.html"
+            }
+        }
+    ]
+}

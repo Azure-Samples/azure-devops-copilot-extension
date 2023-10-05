@@ -1,0 +1,23 @@
+{
+    "contributions": [
+        {
+            "id": "generate-test-cases-menu-item",
+            "type": "ms.vss-web.action",
+            "targets": [
+                "ms.vss-work-web.work-item-context-menu"
+            ],
+            "properties": {
+                "text": "AI - Generate Test Cases",
+                "uri": "dist/GenerateTestCasesMenu/GenerateTestCasesMenu.html",
+                "icon": {
+                    "light": "static/brain.icon.png",
+                    "dark": "static/brain.icon.png"
+                },
+                "registeredObjectId": "generate-test-cases-menu"
+            }
+        }
+    ],
+    "scopes": [
+        "vso.build"
+    ]
+}

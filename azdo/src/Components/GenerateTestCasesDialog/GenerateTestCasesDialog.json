@@ -1,0 +1,11 @@
+{
+    "contributions": [
+        {
+            "id": "generate-test-cases-dialog",
+            "type": "ms.vss-web.external-content",
+            "properties": {
+                "uri": "dist/GenerateTestCasesDialog/GenerateTestCasesDialog.html"
+            }
+        }
+    ]
+}

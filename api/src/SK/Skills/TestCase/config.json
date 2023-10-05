@@ -1,0 +1,18 @@
+{
+    "schema": 1,
+    "type": "completion",
+    "description": "Test cases for user story based on acceptance criteria",
+    "completion": {
+        "max_tokens": 5000
+    },
+    "input": {
+        "parameters": [
+            {
+                "name": "input",
+                "description": "Input for this semantic function.",
+                "defaultValue": ""
+            }
+        ]
+    },
+    "default_backends": []
+}

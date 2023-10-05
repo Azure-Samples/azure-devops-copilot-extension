@@ -1,0 +1,50 @@
+{
+    "manifestVersion": 1,
+    "id": "azdo-copilot-poc",
+    "publisher": "MSFT-ISELabs",
+    "version": "0.1.18",
+    "name": "Azure DevOps Copilot PoC",
+    "description": "Azure DevOps Extension",
+    "categories": [
+        "Azure Repos",
+        "Azure Boards",
+        "Azure Pipelines",
+        "Azure Test Plans",
+        "Azure Artifacts"
+    ],
+    "targets": [
+        {
+            "id": "Microsoft.VisualStudio.Services"
+        }
+    ],
+    "icons": {
+        "default": "images/logo.png"
+    },
+    "content": {
+        "details": {
+            "path": "overview.md"
+        }
+    },
+    "links": {
+        "getstarted": {
+            "uri": "https://github.com/microsoft/azure-devops-copilot/tree/main/docs"
+        },
+        "support": {
+            "uri": "https://github.com/microsoft/azure-devops-copilot/issues/new"
+        }
+    },
+    "repository": {
+        "type": "git",
+        "uri": "https://github.com/microsoft/azure-devops-copilot"
+    },
+    "files": [
+        {
+            "path": "static",
+            "addressable": true
+        },
+        {
+            "path": "dist",
+            "addressable": true
+        }
+    ]
+}

@@ -1,0 +1,17 @@
+{
+    "contributions": [
+    {
+        "id": "collection-level-admin-hub",
+        "type": "ms.vss-web.hub",
+        "description": "Azure DevOps Copilot",
+        "targets": [
+            "ms.vss-web.collection-admin-hub-group"
+        ],
+        "properties": {
+            "name": "Azure DevOps Copilot",
+            "order": 100,
+            "uri": "dist/ConfigurationSettingsHub/ConfigurationSettingsHub.html"
+        }
+    }
+  ]
+}

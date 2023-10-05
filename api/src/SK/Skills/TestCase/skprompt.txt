@@ -1,0 +1,22 @@
+We would like to create test cases for our software engineering user stories. Provided a list of acceptance criteria in Gherkin format, please create positive and negative test cases with titles and steps in JSON format. 
+Please prefix the test case titles if the test case is positive or negative.
+
+Please return ONLY a JSON list, with no additional text, containing the structured test cases with the following format:
+
+[{
+  "Title": "Positive: Test Case 1”
+  "TestCaseSteps": [
+    {
+      "Index": 1,
+      "Action": "Click on the 'File' tab on the top left corner of the Outlook window",
+      "ExpectedResult": "The 'File' menu is opened with various options"
+    },
+    {
+      "Index": 2,
+      "Action": "Click on the 'File' tab on the top left corner of the Outlook window",
+      "ExpectedResult": "The 'File' menu is opened with various options"
+    }
+  ]
+}]
+
+{{$input}}
