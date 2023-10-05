@@ -1,0 +1,89 @@
+@import "node_modules/azure-devops-ui/Core/_platformCommon.scss";
+
+.sample-panel {
+  font-size: $fontSizeM;
+}
+
+.sample-panel-button-bar {
+  margin-bottom: 10px;
+}
+
+.vertical-align-top {
+    vertical-align: top;
+}
+
+.vertical-align-center {
+  vertical-align: center;
+}
+
+div.very-light-border {
+  border: 1px solid #efefef;
+}
+
+.bolt-textfield-default-width {
+  width: 290px;
+}
+
+.test-step-column {
+  width: 290px;
+}
+
+.test-case-container {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #fff;
+}
+
+div.test-title-input {
+  width: 420px;
+}
+
+.test-title-label {
+  font-weight: bold;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 30px
+}
+
+table thead {
+  font-style: italic;
+  text-align: center;
+}
+
+table thead tr td {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.title-textarea {
+  border: none;
+  width: 8em;
+  overflow: hidden;
+  font-weight: bold;
+}
+
+.action-textarea {
+  border: none;
+  width: 12em;
+  overflow: hidden;
+}
+
+.test-case-grid-container {
+  display: grid;
+  grid-template-columns: auto 1fr; 
+  gap: 10px;
+
+  .test-case-grid-item1 {
+    grid-column: 1;
+    margin-top: 10px;
+  }
+
+  .test-case-grid-item2 {
+    grid-column: 2;
+  }
+
+  .test-case-grid-item3 {
+    grid-column: 2;
+    margin-bottom: 10px;
+  }
+}

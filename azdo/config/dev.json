@@ -1,0 +1,5 @@
+{
+    "id": "azdo-copilot-poc-dev",
+    "public": false,
+    "baseUri": "https://localhost:3000"
+  }
