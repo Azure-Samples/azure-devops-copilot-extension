@@ -2,6 +2,10 @@
 
 Azure DevOps Co-Pilot is a proof-of-concept project born from the Microsoft Hackathon 2023. Its primary mission is to empower Product Owners and other team members to participate in the development lifecycle with an intelligent and highly personalized assistant using Azure OpenAI + Semantic Kernel that harnesses the power of Azure DevOps services. While initially designed as an Azure DevOps extension, the project has the potential to extend its capabilities to other platforms, including GitHub.
 
+We recognize that every team defines and customizes its own processes and tools to suit its unique Software Development Lifecycle. We have made the decision to open-source this extension so that teams can adopt similar practices and tailor them to their specific requirements. This approach empowers teams to extend and customize the extension according to their needs, facilitating a seamless kickstart to their work without imposing rigid guidelines.
+
+We intend to actively maintain this sample, ensuring it remains compatible with the latest versions of Semantic Kernel, Azure DevOps SDKs, and Azure Open AI features. However, please note that we will not be offering any formal support for this project. Contributions are always welcomed.
+
 > Note: This project is a proof-of-concept sample to integrate OpenAI + Semantic Kernel + Azure DevOps, it is not itself a service provided by Microsoft. It contains sample code that can be used as base point for a service in production, however no support is provided.
 
 ## Key Features
