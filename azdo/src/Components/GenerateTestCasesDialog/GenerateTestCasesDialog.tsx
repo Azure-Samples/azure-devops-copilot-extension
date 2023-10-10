@@ -230,6 +230,7 @@ class DialogContent extends React.Component<{}, IDialogContentState> {
                           
                           <div className={css("test-case-grid-item1")}>
                             <Toggle
+                              ariaLabel="Create test case toggle"
                               checked={testCase.checked}
                               onChange={(e) => this.updateItem(e, index1)}
                               data-id={`toggle-${index1}`}
@@ -241,7 +242,7 @@ class DialogContent extends React.Component<{}, IDialogContentState> {
                               <div className={css("test-title-label")}>Title:</div>
                               &nbsp;&nbsp;
                               <TextField
-                                ariaLabel="Title"
+                                ariaLabel="Test case title"
                                 value={testCase.title}
                                 onChange={(e) => this.updateTitle(e, index1)}
                                 className={css("test-title-input very-light-border")}
@@ -253,9 +254,9 @@ class DialogContent extends React.Component<{}, IDialogContentState> {
                             <table>
                             <thead>
                               <tr>
-                                <td>Step</td>
-                                <td>Action</td>
-                                <td>Expected</td>
+                                <td aria-label="Step column">Step</td>
+                                <td aria-label="Action column">Action</td>
+                                <td aria-label="Expected column">Expected</td>
                               </tr>
                             </thead>
                             <tbody>
@@ -269,7 +270,7 @@ class DialogContent extends React.Component<{}, IDialogContentState> {
                                           <td className="vertical-align-center">{step.index}</td>
                                           <td className="test-step-column">
                                             <TextField
-                                              ariaLabel="Action"
+                                              ariaLabel="Test case action"
                                               value={step.action}
                                               onChange={(e) => this.updateSteps(e, index1, index2)}
                                               multiline
@@ -281,7 +282,7 @@ class DialogContent extends React.Component<{}, IDialogContentState> {
 
                                           <td className="test-step-column">
                                             <TextField
-                                              ariaLabel="Expected"
+                                              ariaLabel="Expected result"
                                               value={step.expectedResult}
                                               onChange={(e) => this.updateActions(e, index1, index2)}
                                               multiline
@@ -313,12 +314,14 @@ class DialogContent extends React.Component<{}, IDialogContentState> {
                 buttonProps={[
                   {
                     text: "Bulk create",
+                    ariaLabel: "Bulk create test cases",
                     onClick: async () => {
                       await this.createTestCases(context);
                     },
                     primary: true,
                   },
                   {
+                    ariaLabel: "Cancel creating test cases",
                     text: "Cancel",
                     onClick: () => this.dismiss(),
                   },
