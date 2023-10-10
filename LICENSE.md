@@ -1,3 +1,5 @@
+Azure DevOps Copilot Extension - Azure Sample
+
     MIT License
 
     Copyright (c) Microsoft Corporation.
