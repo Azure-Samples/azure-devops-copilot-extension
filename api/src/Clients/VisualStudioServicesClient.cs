@@ -1,3 +1,6 @@
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT license.
+
 using AzDoCopilotSK.Extensions;
 using AzDoCopilotSK.Models;
 using Microsoft.TeamFoundation.WorkItemTracking.WebApi;

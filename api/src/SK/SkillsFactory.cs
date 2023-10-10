@@ -1,4 +1,7 @@
-﻿using AzDoCopilotSK.Models;
+﻿// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT license.
+
+using AzDoCopilotSK.Models;
 using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.SkillDefinition;
 

@@ -1,4 +1,7 @@
-﻿namespace AzDoCopilotSK.Models
+﻿// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT license.
+
+namespace AzDoCopilotSK.Models
 {
     public class UserStoryCreateDto
     {

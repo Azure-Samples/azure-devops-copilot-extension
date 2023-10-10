@@ -1,3 +1,6 @@
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT license.
+
 using Microsoft.AspNetCore.Mvc;
 using AzDoCopilotSK.Clients;
 using AzDoCopilotSK.Models;

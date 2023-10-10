@@ -1,4 +1,7 @@
-﻿using Microsoft.SemanticKernel;
+﻿// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT license.
+
+using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.SkillDefinition;
 
 namespace AzDoCopilotSK.SK

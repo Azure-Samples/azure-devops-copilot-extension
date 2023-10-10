@@ -1,3 +1,6 @@
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT license.
+
 using AzDoCopilotSK.SK;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.SemanticKernel;

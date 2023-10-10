@@ -1,3 +1,6 @@
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT license.
+
 using AzDoCopilotSK.Clients;
 using AzDoCopilotSK.SK;
 using Microsoft.SemanticKernel;
