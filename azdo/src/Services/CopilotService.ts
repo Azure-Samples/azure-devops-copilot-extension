@@ -1,3 +1,6 @@
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT license.
+
 /* tslint:disable */
 import * as SDK from "azure-devops-extension-sdk";
 import {

@@ -1,3 +1,6 @@
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT license.
+
 import "./GenerateTestCasesDialog.scss";
 
 import { Spinner, SpinnerSize } from "azure-devops-ui/Spinner";
