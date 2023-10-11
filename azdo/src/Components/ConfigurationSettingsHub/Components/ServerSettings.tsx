@@ -26,12 +26,12 @@ export class ServerSettings extends React.Component<{}, IServerSettingsState> {
     }
 
     public async componentDidMount() {
-        const config = await this.context.getServerUrl();
+        const config = (await this.context.getConfiguration());
         this.setState({
-            serverUrl: config,
-            serverUrlInput: config,
-            apiKey: config,
-            apiKeyInput: config,
+            serverUrl: config.serverUrl,
+            serverUrlInput: config.serverUrl,
+            apiKey: config.apiKey, 
+            apiKeyInput: config.apiKey,
         });
     }
 
