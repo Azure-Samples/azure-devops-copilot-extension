@@ -2,7 +2,9 @@
 // Licensed under the MIT license.
 
 using AzDoCopilotSK.Clients;
+using AzDoCopilotSK.Middleware;
 using AzDoCopilotSK.SK;
+using Microsoft.OpenApi.Models;
 using Microsoft.SemanticKernel;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,7 +14,26 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.AddSecurityDefinition("ApiKey", new OpenApiSecurityScheme()
+    {
+        In = ParameterLocation.Header,
+        Name = ApiKeyValidator.ApiKeyHeaderName,
+        Type = SecuritySchemeType.ApiKey,
+    });
+
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = ApiKeyValidator.ApiKeyHeaderName }
+            },
+            Array.Empty<string>()
+        }
+    });
+});
 
 builder.Services.AddSingleton(opts =>
 {
@@ -66,6 +87,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseCors(allowAll);
+
+app.UseMiddleware<ApiKeyValidator>();
 
 app.UseHttpsRedirection();
 
