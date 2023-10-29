@@ -27,6 +27,7 @@ axiosRetry(axios, {
 
 interface IConfiguration {
   serverUrl: string;
+  apiKey: string;
 }
 
 export interface IUserStory {
@@ -74,7 +75,7 @@ export class CopilotService {
     const accessToken = await SDK.getAccessToken();
     const appToken = await SDK.getAppToken();
 
-    const serverUrl = await this.getServerUrl();
+    const serverUrl = (await this.getConfiguration())?.serverUrl;
     try {
       const response = await axios.post<{
         accessToken: string;
@@ -109,50 +110,8 @@ export class CopilotService {
     }
   }
 
-  public async getBadgeJwtToken(
-    repositoryId: string
-  ): Promise<{ accessToken: string; expiresInSeconds: number } | undefined> {
-    const projectService = await SDK.getService<IProjectPageService>(
-      CommonServiceIds.ProjectPageService
-    );
-    const project = await projectService.getProject();
-    if (!project) {
-      console.error("Could not identify current project");
-      return undefined;
-    }
-
-    const serverUrl = await this.getServerUrl();
-    try {
-      const response = await axios.post<{
-        accessToken: string;
-        expiresInSeconds: number;
-      }>(
-        `${serverUrl}/${project.name}/repositories/${repositoryId}/badges/token`,
-        {},
-        {
-          headers: {
-            Accept: "application/json",
-            Authorization: "Bearer " + this.getJwtBearer(),
-          },
-        }
-      );
-
-      return {
-        accessToken: response.data.accessToken,
-        expiresInSeconds: response.data.expiresInSeconds,
-      };
-    } catch (e) {
-      let data = {};
-      if (axios.isAxiosError(e)) {
-        data = (e as AxiosError).toJSON();
-      }
-      console.log("Could not get badge jwt token", data);
-      return undefined;
-    }
-  }
-
   private async getApiUrl(endpoint: string): Promise<string> {
-    const serverUrl = (await this.getServerUrl()).replace(/\/$/, '');
+    const serverUrl = (await this.getConfiguration())?.serverUrl.replace(/\/$/, '');
     return `${serverUrl}/api/${endpoint}`;
   }
 
@@ -177,6 +136,7 @@ export class CopilotService {
           headers: {
             Accept: "application/json",
             Authorization: "Bearer " + this.getJwtBearer(),
+            "x-api-key": ((await this.getConfiguration())?.apiKey) || "",
           },
         }
       );
@@ -189,35 +149,11 @@ export class CopilotService {
     }
   }
 
-  public async unstarRepository(
-    projectName: string,
-    repositoryId: string
-  ): Promise<void> {
-    const serverUrl = await this.getServerUrl();
-    try {
-      const response = await axios.delete(
-        `${serverUrl}/${projectName}/repositories/${repositoryId}/stars`,
-        {
-          headers: {
-            Accept: "application/json",
-            Authorization: "Bearer " + this.getJwtBearer(),
-          },
-        }
-      );
-    } catch (e) {
-      let data = {};
-      if (axios.isAxiosError(e)) {
-        data = (e as AxiosError).toJSON();
-      }
-      console.log("Could not unstar repository", data);
-    }
-  }
-
   public async isReady(): Promise<boolean> {
-    return !!(await this.getServerUrl());
+    return !!(await this.getConfiguration()).serverUrl;
   }
 
-  public async setServerUrl(serverUrl: string): Promise<void> {
+  public async saveConfig(serverUrl: string, apiKey: string): Promise<void> {
     await SDK.ready();
     const accessToken = await SDK.getAccessToken();
     const extDataService = await SDK.getService<IExtensionDataService>(
@@ -232,12 +168,13 @@ export class CopilotService {
       CopilotService.ConfigurationKey,
       {
         serverUrl,
+        apiKey
       },
       { scopeType: "Default" }
     );
   }
 
-  public async getServerUrl(): Promise<string | undefined> {
+  public async getConfiguration(): Promise<IConfiguration | undefined> {
     await SDK.ready();
     const accessToken = await SDK.getAccessToken();
     const extDataService = await SDK.getService<IExtensionDataService>(
@@ -259,7 +196,7 @@ export class CopilotService {
       console.log("Could not find configuration", e);
     }
 
-    return data?.serverUrl;
+    return data;
   }
 
   public async setUserPreferrence<T>(key: string, value: T): Promise<void> {
@@ -331,6 +268,13 @@ export class CopilotService {
     return axios
       .post(endpointUrl, {
         acceptanceCriteria: cleanedAcceptanceCriteria,
+      },
+      {
+        headers: {
+          Accept: "application/json",
+          Authorization: "Bearer " + this.getJwtBearer(),
+          "x-api-key": ((await this.getConfiguration())?.apiKey) || ""
+        }
       })
       .then((response) => {
         console.log("API Response:", response.data);
@@ -357,7 +301,13 @@ export class CopilotService {
       testCases: testCases,
     };
     return axios
-      .post(apiUrl, data)
+      .post(apiUrl, data, {
+        headers: {
+          Accept: "application/json",
+          Authorization: "Bearer " + this.getJwtBearer(),
+          "x-api-key": ((await this.getConfiguration())?.apiKey) || "",
+        },
+      })
       .then((response) => {
         console.log("API Response Successful");
         return true;
