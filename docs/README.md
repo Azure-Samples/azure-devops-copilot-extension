@@ -5,7 +5,7 @@
 Before you can begin using Azure DevOps Co-Pilot, please ensure that you meet the following pre-requisites:
 
 - Membership in the Project Collection Administrators group for administrative access on the Azure DevOps Server where you intend to add this extension.
-- A deployed and running [Azure DevOps Co-Pilot backend](https://github.com/microsoft/azure-devops-copilot/tree/main/infra).
+- A deployed and running [Azure DevOps Co-Pilot backend](/infra).
 
 ## Installation
 
