@@ -10,7 +10,7 @@ We provide one-click deployment for the Backend API and OpenAI service to your o
 
 You can deploy the infrastructure using the [Azure CLI](https://learn.microsoft.com/en-us/cli/azure/install-azure-cli). You will need to have the Azure CLI installed and logged in to your Azure subscription.
 
-[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fmicrosoft%2Fazure-devops-copilot%2Fmain%2Finfra%2Fmain.bicep)
+[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FAzure-Samples%2Fazure-devops-copilot-extension%2Fmain%2Finfra%2Fmain.bicep)
 
 Alternatively, the infrastructure can be deployed by manually running the next command:
 
