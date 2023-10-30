@@ -1,0 +1,33 @@
+name: Bicep to ARM
+
+on:
+  pull_request:
+    paths:
+      - '*/infra/*'
+    
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out code
+      uses: actions/checkout@v2
+
+    - name: Build Bicep to ARM
+      run: |
+        curl -Lo bicep https://github.com/Azure/bicep/releases/latest/download/bicep-linux-x64
+        chmod +x bicep
+        bicep build infra/main.bicep --outfile infra/azure-deploy.json
+      shell: bash
+
+    - name: Commit and push ARM template
+      run: |
+        git config --global user.email "actions@github.com"
+        git config --global user.name "GitHub Actions"
+        git checkout -b "${{ github.event.pull_request.head.ref }}"
+        git add infra
+        git commit -m "Compile Bicep to ARM"
+        git push --set-upstream origin "${{ github.event.pull_request.head.ref }}"
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      shell: bash
