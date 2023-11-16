@@ -2,7 +2,7 @@
     "manifestVersion": 1,
     "id": "azdo-copilot-poc",
     "publisher": "MSFT-ISELabs",
-    "version": "0.1.21",
+    "version": "0.1.33",
     "name": "Azure DevOps Copilot PoC",
     "description": "Azure DevOps Extension",
     "categories": [
