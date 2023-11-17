@@ -1,54 +1,64 @@
 A user story is an informal, specific explanation of a software feature written from the perspective of the end user and related to a context ContextTopic.
 Its purpose is to articulate how a software feature will provide value to the customer.
-It also explains what a developer need to implement and why.
+It also explains what a developer needs to implement and why and where and it what way.
 
-A user story documented in a Hypothesis-Driven Development would be expressed and structured as follows:
+A User Story is always based on a [Feature]. A User Story always contains at least 
+a title
+a description and
+a list of acceptance criteria
 
-We believe that [this capability],
-Will result in [this outcome],
-We will know we have succeeded when [we see a measurable signal]
-
-
-We believe <this capability> will document what functionality we will develop to test our hypothesis? 
-By defining a ‘test’ capability of the product or service that we are attempting to build, we identify the functionality and hypothesis we want to test.
-
-Will result in <this outcome>, will document what is the expected outcome of our experiment? What is the specific result we expect to achieve by building the ‘test’ capability?
-
-We will know we have succeeded when <we see a measurable signal> will explain what signals will indicate that the capability we have built is effective? What key metrics (qualitative or quantitative) we will measure to provide evidence that our experiment has succeeded and give us enough confidence to move to the next stage.
-
-
-For example, a user story description in Hypothesis-Driven Development might look like:
-
-We Believe That increasing the size of hotel images on the booking page, 
-Will Result In improved customer engagement and conversion,
-We Will Know We Have Succeeded When we see a 5% increase in customers who review hotel images who then proceed to book in 48 hours.
-
-User stories could also contain acceptance criteria and a summarized title.
-
-A user story title is a summary of the user story's contents. 
+A user story title is a summary of the user story's contents, which is it's description.
 It is short but descriptive, and team members can refer to the title of the story and be easily understood by the rest of the team.
 
 User story titles might look like:
-Scale Environment Creation
-Create E2E Tests for Terraform Resources
-Create Demo Environment
+Meet regulatory requirements for dog insurances
+Update costumer User Interface with pet insurance subscription feature
+
+The description of a user story is mainly derived from the description of the feature it is linked to. It would be expressed and structured as follows:
+
+[this capability] will be needed because of [this reason]
+It will result in [this outcome].
+
+For example, a user story description in Hypothesis-Driven Development might look like:
+
+Adding an mortality insurance option for pregnant pets will help our customers provide for the pet's decendants and help them to better cope with their loss.
+It will result in better customer satisfaction as customers are on a sound financial basis and don't feel so alone with their loss.
+
+
 
 Acceptance criteria serve as a set of conditions that must be met for a user story to be considered complete. 
 They provide clear, detailed expectations for the functionality described in the user story.
 Each acceptance criterion is specific, measurable, and testable, ensuring that the team can objectively determine when the user story is fulfilled.
 
-An example of acceptance criteria for a user story for creating a demo envirionment is:
+
+The list of acceptance criteria of a user story documented in a Hypothesis-Driven Development would be expressed and structured as follows:
+We will know we have succeeded when we meet the following acceptance criteria:
+[list of acceptance criteria]
+
+
+We will know we have succeeded when we meet the following acceptance criteria:
+- increase in pet insurance sales in general by 5%
+- increase in new customers by 2%
+
+Another example of acceptance criteria for a user story for creating a demo envirionment is:
 
 1. The demo environment should be created using a script that can be run with a single command.
 2. The demo environment should include all necessary components of the application, such as the database and web server.
 3. The demo environment should be isolated from other environments to prevent interference.
 4. The demo environment should be easy to tear down and recreate as needed.
 
+
+
+
 Create user story based on below context topic:
 
 [ProjectContext]
 {{$ProjectContext}}
 [End ProjectContext]
+
+[RelatedFeature]
+{{$RelatedFeature}}
+[End RelatedFeature]
 
 [Persona]
 {{$Persona}}
@@ -58,6 +68,6 @@ Create user story based on below context topic:
 {{$ContextTopic}}
 [End]
 
-Return the results in json format with the fields title, description and acceptanceCriteria. All these fields in the json object are of type string. Do not return anything besides the json, no comments, no format, no markdown, just the json object. For example:
+Return the results in json format with the fields title, description and acceptance criteria. All these fields in the json object are of type string. Do not return anything besides the json, no comments, no format, no markdown, just the json object. For example:
 
-{ title: "My summarized title", description: "We Believe that ...", acceptanceCriteria: "1. ..." }
+{ title: "My summarized title", description: "We believe that ...", acceptanceCriteria: "1. ..." }
