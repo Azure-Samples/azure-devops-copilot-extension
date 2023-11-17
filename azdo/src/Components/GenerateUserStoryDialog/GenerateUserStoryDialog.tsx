@@ -41,8 +41,6 @@ const userStoryStyleItem = new DropdownSelection();
 const copilotService = new CopilotService();
 
 class DialogContent extends React.Component<{}, IDialogContentState> {
-
-
   constructor(props: {}) {
     super(props);
     this.state = { copilotReady: true };

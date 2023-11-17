@@ -218,7 +218,7 @@ class DialogContent extends React.Component<{}, IDialogContentState> {
         {this.state.loading ? (
           <div>
             <Spinner size={SpinnerSize.medium} />
-            Loading...
+            Loading, this may take a few minutes ...
           </div>
         ) : (
           <>
@@ -254,7 +254,7 @@ class DialogContent extends React.Component<{}, IDialogContentState> {
                             </div>
                           </div>
                           <div className={css("test-case-grid-item3")}>
-                            <table>
+                            <table aria-label={`Steps for test case ${testCase.title}, ${testCase.testCaseSteps.length} steps`}>
                             <thead>
                               <tr>
                                 <td aria-label="Step column">Step</td>
