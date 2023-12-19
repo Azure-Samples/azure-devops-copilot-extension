@@ -8,7 +8,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.10" />
-    <PackageReference Include="Microsoft.SemanticKernel" Version="0.23.230906.2-preview" />
+    <PackageReference Include="Microsoft.SemanticKernel" Version="1.0.1" />
     <PackageReference Include="Microsoft.TeamFoundationServer.Client" Version="16.205.1" />
     <PackageReference Include="Microsoft.VisualStudio.Services.Client" Version="16.205.1" />
     <PackageReference Include="Serilog.AspNetCore" Version="7.0.0" />
@@ -17,30 +17,25 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="SK\Skills\UserStoryDescription\" />
-    <Folder Include="SK\Skills\TestCase\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Update="SK\Skills\TestCase\config.json">
+    <Content Update="prompts\testcase\config.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Update="SK\Skills\UserStoryDescriptionHypothesis\config.json">
+    <Content Update="prompts\userstory_description_hypothesis\config.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Update="SK\Skills\UserStoryDescription\config.json">
+    <Content Update="prompts\userstory_description_classic\config.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="SK\Skills\TestCase\skprompt.txt">
+    <None Update="prompts\testcase\skprompt.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="SK\Skills\UserStoryDescriptionHypothesis\skprompt.txt">
+    <None Update="prompts\userstory_description_hypothesis\skprompt.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="SK\Skills\UserStoryDescription\skprompt.txt">
+    <None Update="prompts\userstory_description_classic\skprompt.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

@@ -14,14 +14,14 @@ namespace AzDoCopilotSK.Controllers
     [ApiController]
     public class UserStoryController : ControllerBase
     {
-        private readonly IKernel _kernel;
-        private readonly ISkillsFactory _skillsFactory;
+        private readonly Kernel _kernel;
+        private readonly IPromptsFactory _promptsFactory;
         private readonly ILogger<UserStoryController> _logger;
 
-        public UserStoryController(IKernel kernel, ISkillsFactory skillsFactory, ILogger<UserStoryController> logger)
+        public UserStoryController(Kernel kernel, IPromptsFactory skillsFactory, ILogger<UserStoryController> logger)
         {
             _kernel = kernel;
-            _skillsFactory = skillsFactory;
+            _promptsFactory = skillsFactory;
             _logger = logger;
         }
 
@@ -29,24 +29,25 @@ namespace AzDoCopilotSK.Controllers
         public async Task<ActionResult<UserStory?>> Create(UserStoryCreateDto userStoryCreateDto)
         {
             _logger.LogInformation("Creating user story.");
-            var createUserStory = _skillsFactory.GetUserStorySkill(userStoryCreateDto.UserStoryStyle);
+            var createUserStory = _promptsFactory.GetUserStoryPrompt(userStoryCreateDto.UserStoryStyle);
 
-            var context = _kernel.CreateNewContext();
+            var context = new KernelArguments
+            {
+                { "ProjectContext", userStoryCreateDto.ProjectContext ?? "software development project" },
+                { "ContextTopic", userStoryCreateDto.UserStoryDescription! },
+                { "Persona", userStoryCreateDto.PersonaName ?? "software engineer" }
+            };
 
-            context.Variables["ProjectContext"] = userStoryCreateDto.ProjectContext ?? "software development project";
-            context.Variables["ContextTopic"] = userStoryCreateDto.UserStoryDescription!;
-            context.Variables["Persona"] = userStoryCreateDto.PersonaName ?? "software engineer";
-
-            var result = await createUserStory.InvokeAsync(context);
+            var result = await createUserStory.InvokeAsync(_kernel, context);
             _logger.LogInformation($"Result from Prompt: {result}");
 
-            if (!result.Result.IsValidJson())
+            if (!result.ToString().IsValidJson())
             {
                 _logger.LogWarning("Result from Prompt is not valid JSON.");
                 return BadRequest();
             }
 
-            var userStory = JsonSerializer.Deserialize<UserStory>(result.Result, new JsonSerializerOptions
+            var userStory = JsonSerializer.Deserialize<UserStory>(result.ToString(), new JsonSerializerOptions
             {
                 PropertyNamingPolicy = JsonNamingPolicy.CamelCase
             });

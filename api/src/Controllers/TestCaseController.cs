@@ -14,12 +14,12 @@ namespace AzDoCopilotSK.Controllers
     [ApiController]
     public class TestCaseController : ControllerBase
     {
-        private readonly IKernel _kernel;
-        private readonly ISkillsFactory _skillsFactory;
+        private readonly Kernel _kernel;
+        private readonly IPromptsFactory _skillsFactory;
         private readonly ILogger<TestCaseController> _logger;
 
-        public TestCaseController(IKernel kernel, 
-            ISkillsFactory skillsFactory,
+        public TestCaseController(Kernel kernel, 
+            IPromptsFactory skillsFactory,
             ILogger<TestCaseController> logger)
         {
             _kernel = kernel;
@@ -30,22 +30,23 @@ namespace AzDoCopilotSK.Controllers
         [HttpPost]
         public async Task<ActionResult<List<TestCase>>> GetTestCases(TestCasesGetDto testCasesGetDto)
         {
-            var testCaseSkill = _skillsFactory.GetTestCaseSkill();
+            var testCaseSkill = _skillsFactory.GetTestCasePrompt();
 
-            var context = _kernel.CreateNewContext();
+            var context = new KernelArguments
+            {
+                { "input", testCasesGetDto.AcceptanceCriteria ?? "" }
+            };
 
-            context.Variables["input"] = testCasesGetDto.AcceptanceCriteria ?? "";
-
-            var result = await testCaseSkill.InvokeAsync(context);
+            var result = await testCaseSkill.InvokeAsync(_kernel, context);
             _logger.LogInformation($"Test case skill result: {result}");
             
-            if (!result.Result.IsValidJson())
+            if (!result.ToString().IsValidJson())
             {
                 _logger.LogWarning("Result from Prompt is not valid JSON.");
                 return BadRequest();
             }
                 
-            var testCases = JsonConvert.DeserializeObject<List<TestCase>>(result.Result);
+            var testCases = JsonConvert.DeserializeObject<List<TestCase>>(result.ToString());
             foreach (var testCase in testCases!)
             {
                 testCase.Id = Guid.NewGuid().ToString();

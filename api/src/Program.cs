@@ -37,11 +37,11 @@ builder.Services.AddSwaggerGen(c =>
 
 builder.Services.AddSingleton(opts =>
 {
-    var builder = new KernelBuilder();
+    var builder = Kernel.CreateBuilder();
 
     var configuration = opts.GetRequiredService<IConfiguration>();
 
-    builder.WithAzureChatCompletionService(
+    builder.AddAzureOpenAIChatCompletion(
          configuration.GetValue("AZURE_OPENAI_MODEL", "gpt-35-turbo")!,
          configuration.GetValue<string>("AZURE_OPENAI_ENDPOINT")!,
          configuration.GetValue<string>("AZURE_OPENAI_KEY")!);
@@ -49,12 +49,12 @@ builder.Services.AddSingleton(opts =>
     return builder.Build();
 });
 
-builder.Services.AddSingleton<ISkillsFactory>(opts =>
+builder.Services.AddSingleton<IPromptsFactory>(opts =>
 {
-    return new SkillsFactory(opts.GetRequiredService<IKernel>());
+    return new PrompsFactory(opts.GetRequiredService<Kernel>());
 });
 
-builder.Services.AddSingleton<VisualStudioServicesClient>(opts =>
+builder.Services.AddSingleton(opts =>
 {
     var configuration = opts.GetRequiredService<IConfiguration>();
 
@@ -85,10 +85,12 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+else
+{
+    app.UseMiddleware<ApiKeyValidator>();
+}
 
 app.UseCors(allowAll);
-
-app.UseMiddleware<ApiKeyValidator>();
 
 app.UseHttpsRedirection();
 
