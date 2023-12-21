@@ -29,28 +29,15 @@ namespace AzDoCopilotSK.Controllers
         public async Task<ActionResult<UserStory?>> Create(UserStoryCreateDto userStoryCreateDto)
         {
             _logger.LogInformation("Creating user story.");
-            var createUserStory = _promptsFactory.GetUserStoryPrompt(userStoryCreateDto.UserStoryStyle);
 
-            var context = new KernelArguments
-            {
-                { "ProjectContext", userStoryCreateDto.ProjectContext ?? "software development project" },
-                { "ContextTopic", userStoryCreateDto.UserStoryDescription! },
-                { "Persona", userStoryCreateDto.PersonaName ?? "software engineer" }
-            };
+            var userStorySkill = new UserStorySkill(_kernel, _promptsFactory);
 
-            var result = await createUserStory.InvokeAsync(_kernel, context);
-            _logger.LogInformation($"Result from Prompt: {result}");
-
-            if (!result.ToString().IsValidJson())
-            {
-                _logger.LogWarning("Result from Prompt is not valid JSON.");
-                return BadRequest();
-            }
-
-            var userStory = JsonSerializer.Deserialize<UserStory>(result.ToString(), new JsonSerializerOptions
-            {
-                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
-            });
+            var userStory = await userStorySkill.GetUserStory(
+                userStoryCreateDto.UserStoryStyle,
+                userStoryCreateDto.UserStoryDescription!,
+                userStoryCreateDto.ProjectContext,
+                userStoryCreateDto.PersonaName
+            );
             
             return Ok(userStory);
         }
