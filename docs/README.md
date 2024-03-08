@@ -9,8 +9,8 @@ Before you can begin using Azure DevOps Co-Pilot, please ensure that you meet th
 
 ## Installation
 
-1. Obtain the extension from [Azure DevOps Copilot PoC](https://marketplace.visualstudio.com/items?itemName=MSFT-ISELabs.azdo-copilot-poc).
-2. Follow the steps outlined in the article [Install extensions](https://learn.microsoft.com/en-us/azure/devops/marketplace/install-extension?view=azure-devops&tabs=browser) for instructions on installing any Azure DevOps extension.
+1. Build and deploy the extension following [this documentation](/azdo).
+2. Follow the steps outlined in the article [Install extensions](https://learn.microsoft.com/en-us/azure/devops/marketplace/install-extension?view=azure-devops&tabs=browser) for instructions on installing any Azure DevOps extension, including the one you have deployed.
 
 **Note:** If you do not have permission to install extensions, you can request extensions instead. Follow the [Request and approve extensions for Azure DevOps](https://learn.microsoft.com/en-us/azure/devops/marketplace/request-extensions?toc=%2Fazure%2Fdevops%2Fmarketplace-extensibility%2Ftoc.json&view=azure-devops) link for more information.
 
