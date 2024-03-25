@@ -4,7 +4,7 @@ Azure DevOps Co-Pilot is a proof-of-concept project born from the Microsoft Hack
 
 We recognize that every team defines and customizes its own processes and tools to suit its unique Software Development Lifecycle. We have made the decision to open-source this extension so that teams can adopt similar practices and tailor them to their specific requirements. This approach empowers teams to extend and customize the extension according to their needs, facilitating a seamless kickstart to their work without imposing rigid guidelines.
 
-We intend to actively maintain this sample, ensuring it remains compatible with the latest versions of Semantic Kernel, Azure DevOps SDKs, and Azure Open AI features. However, please note that we will not be offering any formal support for this project. Contributions are always welcomed.
+We intend to actively maintain this sample, ensuring it remains compatible with the latest versions of Semantic Kernel, Azure DevOps SDKs, and Azure OpenAI features. However, please note that we will not be offering any formal support for this project. Contributions are always welcomed.
 
 > Note: This project is a proof-of-concept sample to integrate OpenAI + Semantic Kernel + Azure DevOps, it is not itself a service provided by Microsoft. It contains sample code that can be used as base point for a service in production, however no support is provided.
 
@@ -14,7 +14,7 @@ We intend to actively maintain this sample, ensuring it remains compatible with 
 Azure DevOps Co-Pilot redefines the role of Product Owners by providing them with a smart assistant capable of streamlining various aspects of project management and decision-making within the Azure DevOps ecosystem.
 
 ### 2. Versatile API Backend
-The project includes a robust API backend that plays a pivotal role in connecting to Azure Open AI's Semantic Kernel. This connection enables advanced natural language processing, enhancing the assistant's ability to understand and interact with users effectively.
+The project includes a robust API backend that plays a pivotal role in connecting to Azure OpenAI's Semantic Kernel. This connection enables advanced natural language processing, enhancing the assistant's ability to understand and interact with users effectively.
 
 ### 3. Azure DevOps Extension
 The core of the project revolves around its Azure DevOps extension. This extension is designed to be adaptable, allowing users to configure it to connect to their own backend. This flexibility ensures that the solution can be tailored to meet unique requirements.
