@@ -1,6 +1,7 @@
 name: Bicep to ARM
 
 on:
+  workflow_dispatch:
   pull_request:
     paths:
       - '*/infra/*'
