@@ -1,9 +1,7 @@
 name: Bicep to ARM
 
 on:
-  pull_request:
-    paths:
-      - '*/infra/*'
+  workflow_dispatch:
     
 jobs:
   build:
@@ -24,10 +22,9 @@ jobs:
       run: |
         git config --global user.email "actions@github.com"
         git config --global user.name "GitHub Actions"
-        git checkout -b "${{ github.event.pull_request.head.ref }}"
         git add infra
         git commit -m "Compile Bicep to ARM"
-        git push --set-upstream origin "${{ github.event.pull_request.head.ref }}"
+        git push -u origin HEAD
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       shell: bash

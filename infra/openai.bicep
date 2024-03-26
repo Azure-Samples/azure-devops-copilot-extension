@@ -29,7 +29,6 @@ module openAiServiceDeployment 'br:mcr.microsoft.com/bicep/ai/cognitiveservices:
         }
       }
     ]
-    restore: true
   }
 }
 
