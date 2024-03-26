@@ -5,52 +5,31 @@ param deploymentSuffix string = utcNow('yyyyMMddhhmmss')
 
 var resourceSuffix = uniqueString(resourceGroup().id, location)
 
-param name string = 'devops-copilot-openai-${resourceSuffix}'
-param tags object = {}
-
-var deployments array = [
+module openAiServiceDeployment 'br:mcr.microsoft.com/bicep/ai/cognitiveservices:1.0.5' = {
+  name: 'openaiservice-${deploymentSuffix}'
+  params: {
+    kind: 'OpenAI'
+    name: 'devops-copilot-openai-${resourceSuffix}'
+    skuName: 'S0'
+    location: location
+    deployments: [
       {
         name: 'model-deployment-${resourceSuffix}'
-        model: {
-          format: 'OpenAI'
-          name: 'gpt-35-turbo'
-          version: '0301'
-        }
-        scaleSettings: {
-          scaleType: 'Standard'
-        }
         sku: {
           name: 'Standard'
           capacity: 1
         }
+        properties: {
+          model: {
+            format: 'OpenAI'
+            name: 'gpt-35-turbo'
+            version: '0301'
+          }
+          raiPolicyName: 'Microsoft.Default'
+        }
       }
     ]
-param kind string = 'OpenAI'
-param publicNetworkAccess string = 'Enabled'
-param sku object = {
-  name: 'S0'
+  }
 }
 
-resource account 'Microsoft.CognitiveServices/accounts@2022-10-01' = {
-  name: name
-  location: location
-  tags: tags
-  kind: kind
-  properties: {
-    publicNetworkAccess: publicNetworkAccess
-  }
-  sku: sku
-}
-
-@batchSize(1)
-resource deployment 'Microsoft.CognitiveServices/accounts/deployments@2022-10-01' = [for deployment in deployments: {
-  parent: account
-  name: deployment.name
-  properties: {
-    model: deployment.model
-    raiPolicyName: contains(deployment, 'raiPolicyName') ? deployment.raiPolicyName : null
-    scaleSettings: deployment.scaleSettings
-  }
-}]
-
-output openAiEndpoint string = account.properties.endpoint
+output openAiEndpoint string = openAiServiceDeployment.outputs.endpoint
